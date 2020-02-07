@@ -43,7 +43,7 @@ public class StudentImp implements IStudentService {
                         Student student = new Student(createLoginStudentDto.getDniDto(),createLoginStudentDto.getNameDto(),createLoginStudentDto.getLastNameDto(),
                                             createLoginStudentDto.getAgeDto(),new Date(),new Date(),Constant.ACTIVE,login);
                         iStudentRepository.save(student);
-                        return resLoginSessionDto = new  ResLoginSessionDto(login.getEmail(),student.getIdStudent(),student.getDni(),student.getName(),
+                        resLoginSessionDto = new  ResLoginSessionDto(login.getEmail(),student.getIdStudent(),student.getDni(),student.getName(),
                                             student.getLastName(),student.getAge());
                     }else{
                         throw new NotSaveException(Constant.NOT_SAVE_EXCEPTION);
