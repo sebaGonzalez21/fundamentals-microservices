@@ -1,0 +1,4 @@
+## IGNORAR MYSQL
+/mysql/
+### VS Code ###
+.vscode/
