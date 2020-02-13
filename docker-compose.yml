@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+## BASE DE DATOS MYSQL
+    mysql:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        container_name: mysql
+        restart: ${RESTART}
+        volumes:
+          - D:\desarrollo\personal\Mysql:/var/lib/mysql
+        environment:
+          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+          MYSQL_DATABASE: ${MYSQL_DATABASE}
+          MYSQL_USER: ${MYSQL_USER}
+          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+          MYSQL_ROOT_HOST: ${MYSQL_HOST}
+        ports:
+          - "${MYSQL_PORT}:${MYSQL_PORT}"
+## MICROSERVICIO SPRING BOOT
+    ms-dal-springboot:
+        build:
+          context: D:\desarrollo\personal\Ejemplo-Microservicio\
+          dockerfile: ./Dockerfile
+        image: ms-dal-springboot
+        container_name: ms-dal-springboot
+        restart: ${RESTART}
+        links: 
+          - mysql
+        environment:
+          PORT: ${MS_DAL_SPRING_PORT}
+          DB_HOST_MYSQL: mysql
+          DB_PORT_MYSQL: ${MYSQL_PORT}
+          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+          DB_DRIVER_DATASOURCE_USER: ${MYSQL_USER}
+          DB_DRIVER_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+          SECRET_ENCRYPT: ${SECRET_ENCRYPT}
+        ports:
+          - "${MS_DAL_SPRING_PORT}:${MS_DAL_SPRING_PORT}"
+#Eliminar Imagenes
+#docker rmi $(docker images --filter “dangling=true” -q --no-trunc)
+#docker-compose up -d --build --rm
