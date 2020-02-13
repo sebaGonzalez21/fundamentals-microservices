@@ -8,7 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ILoginRepository extends JpaRepository<Login,Long> {
-
-    @Query(value = ("SELECT * FROM LOGINS s WHERE s.email = :email and active=1"),nativeQuery = true)
-    Login initSession(@Param("email") String email);
+    Login findByEmail(String email);
 }

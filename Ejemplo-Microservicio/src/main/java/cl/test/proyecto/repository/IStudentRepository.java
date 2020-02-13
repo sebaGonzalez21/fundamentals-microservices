@@ -14,12 +14,11 @@ public interface IStudentRepository extends JpaRepository<Student, Long> {
     Student findByIdStudent(Long id);
 
     //forma A
-    //@Query(("SELECT s FROM Student s WHERE s.name = ?1"))
+    //@Query(("select * from student s where s.name = ?1"))
     //List<Student> findByName(String name);
 
     //forma B
-    @Query(("SELECT s FROM Student s WHERE s.name = :name"))
-    List<Student> findByName(@Param("name") String name);
+    List<Student> findByName(String name);
 
     //Invocar procedimientos
     //@Transactional

@@ -27,7 +27,7 @@ public class LoginImp implements ILoginService {
     public ResLoginSessionDto sessionStudent(LoginSessionDto loginSessionDto) throws UnauthorizedException {
         ResLoginSessionDto resLoginSessionDto = null;
         try {
-              Login login = loginRepository.initSession(loginSessionDto.getEmailDto());
+              Login login = loginRepository.findByEmail(loginSessionDto.getEmailDto());
               if(null != login){
                   if(pbkdf2EncryptSecurity.validatePassword(loginSessionDto.getPasswordDto(),login.getPassword())){
                       resLoginSessionDto = new ResLoginSessionDto(login.getEmail(),login.getStudent().getIdStudent(),login.getStudent().getDni(),
@@ -53,7 +53,7 @@ public class LoginImp implements ILoginService {
     public ResLoginSessionDto sessionTeacher(LoginSessionDto loginSessionDto) throws UnauthorizedException {
         ResLoginSessionDto resLoginSessionDto = null;
         try {
-            Login login = loginRepository.initSession(loginSessionDto.getEmailDto());
+            Login login = loginRepository.findByEmail(loginSessionDto.getEmailDto());
             if(null != login){
                 if(pbkdf2EncryptSecurity.validatePassword(loginSessionDto.getPasswordDto(),login.getPassword())){
                     resLoginSessionDto = new ResLoginSessionDto(login.getEmail(),login.getTeacher().getIdTeacher(),login.getTeacher().getDni(),
