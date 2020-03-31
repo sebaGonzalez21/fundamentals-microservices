@@ -16,6 +16,19 @@ services:
           MYSQL_ROOT_HOST: ${MYSQL_HOST}
         ports:
           - "${MYSQL_PORT}:${MYSQL_PORT}"
+## BASE DE DATOS SQLSERVER
+    sqlserver:
+        image: mcr.microsoft.com/mssql/server:2019-GA-ubuntu-16.04
+        container_name: sqlserver
+        restart: ${RESTART}
+        #volumes:
+        #  - D:\desarrollo\personal\sqlserver:/var/opt/mssql
+        environment:
+          ACCEPT_EULA: ${SQL_ACCEPT_EULA}
+          SA_PASSWORD: ${SQL_SA_PASSWORD}
+          MSSQL_PID: ${SQL_MSSQL_PID}
+        ports:
+          - "1445:${SQL_SERVER_PORT}"
 ## MICROSERVICIO SPRING BOOT
     ms-dal-springboot:
         build:
